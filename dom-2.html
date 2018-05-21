@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+  //为所有的a节点添加onclick响应函数
+  //
+  window.onload=function(){
+	  var aNodes=document.getElementById("employeetable").getElementsByTagName("a");
+      for(var i=0;i<aNodes.length;i++){
+    	  aNodes[i].onclick=function(){
+    		  removetr(this);
+    		 return false;
+    	  }
+    	  
+      }
+     var btn= document.getElementById("addBtn").onclick=function(){
+    	 var nameVal=document.getElementById("name").value;
+    	 var emailVal=document.getElementById("email").value;
+    	 var salaryVal=document.getElementById("salary").value;
+    	// var nameTx
+    	 var namdeTd=document.createElement("td");
+    	 namdeTd.appendChild(document.createTextNode(nameVal));
+    	 var emailTd=document.createElement("td");
+    	 emailTd.appendChild(document.createTextNode(emailVal));
+    	 var salaryTd=document.createElement("td");
+    	 salaryTd.appendChild(document.createTextNode(salaryVal));
+    	 var tr=document.createElement("tr");
+    	 tr.appendChild(namdeTd);
+    	 tr.appendChild(emailTd);
+    	 tr.appendChild(salaryTd);
+    	 var anode=document.createElement("a");
+    	 anode.href="deleteEmp?id=xxx";
+    	 anode.appendChild(document.createTextNode("Delete"));
+    	 var aTd=document.createElement("td");
+    	 aTd.appendChild(anode);
+    	 tr.appendChild(aTd);
+    	 anode.onclick=function(){
+    		 removetr(anode);
+    		 return false;
+    	 }
+    	 
+    	 document.getElementById("employeetable")
+    	         .getElementsByTagName("tbody")[0]
+    	         .appendChild(tr);
+    	 //value:用户获取html表单元素的值,和type，id是一样的属性
+    	 //nodeValue文本节点的文本值，唯一这个时候用，任何一个节点都有这个属性值，描述这个节点的属性
+    	 alert(this.value);
+    	 alert(this.nodeValue);//null
+    	 
+     }
+     
+  }
+  function removetr(aNode){
+	  var trNode=aNode.parentNode.parentNode;
+	  var textContent=trNode.getElementsByTagName("td")[0].firstChild.nodeValue;
+	 // alert(textContent);
+	  //return false;
+	  textContent=trim(textContent);
+	  var flag=confirm("确定要删除"+textContent+"的 信息吗？");
+	  if(flag){
+		  //删除为删除整行的值
+		  trNode.parentNode.removeChild(trNode);
+	  }
+	 //return false;
+  }
+  function trim(str){
+	  var reg=/^\s|\s*$/g;
+	  return str.replace(reg,"");
+  }
+</script>
+</head>
+<body>
+   <center>
+      <br><br>添加新员工 <br><br>name:<input type="text"
+       name="name" id="name"/>&nbsp;&nbsp; email:<input type="test"
+       name="email" id="email" /> salary:<input type="text"
+       name="salary" id="salary" /><br><br>
+       <button id="addBtn" value="abc">Submit</button>
+       <br><br>
+       <hr>
+       <br><br>
+    <table id="employeetable" border="1" cellpading="5">
+       <tbody>
+       <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Salary</th> 
+        <th>&nbsp;</th>
+       </tr>
+        <tr>
+        <td>Tom</td>
+        <td>Tom@tom.com</td>
+        <td>5000</td> 
+        <td><a href="deleteEmp? id=001">Delete</a></td>
+       </tr>
+       <tr>
+        <td>mary</td>
+        <td>Mar@mary.com</td>
+        <td>4000</td> 
+        <td> <a href="deleteEmp? id=001=2">Delete</a></td>
+       </tr>
+      </tbody>
+         
+    </table>
+    </center>
+</body>
+</html>
